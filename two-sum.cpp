@@ -1,7 +1,4 @@
 // Copyright [2018] <mituh>
-#include <vector>
-#include <iostream>
-using namespace std;
 
 /*
 给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
@@ -17,6 +14,10 @@ using namespace std;
 */
 
 /*
+#include <vector>
+#include <iostream>
+using namespace std;
+
 class Solution {
  public:
   vector<int> twoSum(vector<int> &nums, int target) {
@@ -36,8 +37,12 @@ class Solution {
 };
 */
 
-
+/*
 // two pointers解法, 排序O(N^2)不稳定, two pointers O(n);
+#include <vector>
+#include <iostream>
+using namespace std;
+
 class Solution {
  public:
   void exch(vector<int> &a, int i, int j) {
@@ -66,9 +71,59 @@ class Solution {
     }
     return {};
   }
-
 };
+*/
 
+
+/*
+// 2遍Hash表
+// Time:O(n), Space:O(n),Hash表查找时间O(1), 查找n次; 额外存放n个元素
+#include <unordered_map>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+class Solution {
+ public:
+  vector<int> twoSum(vector<int> &nums, int target) {
+    unordered_map<int, int> mp;
+    int N = nums.size();
+    for (int i = 0; i < N; i++) {
+      mp[nums[i]] = i;
+    }
+
+    for (int i = 0; i < N; i++) {
+      int key = target - nums[i];
+      if (mp.find(key) != mp.end() && mp[key] != i) {
+        return {i, mp[key]};
+      }
+    }
+    return {};
+  }
+};
+*/
+
+
+// 1遍Hash表
+// Time:O(n), Space:O(n),Hash表查找时间O(1), 查找n次; 额外存放n个元素
+#include <unordered_map>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+class Solution {
+ public:
+  vector<int> twoSum(vector<int> nums, int target) {
+    unordered_map<int, int> mp;
+    int N = nums.size();
+    for (int i = 0; i < N; i++) {
+      int key = target - nums[i];
+      if (mp.find(key) != mp.end()) return { mp[key], i};
+      mp[nums[i]] = i;
+    }
+    return {};
+  }
+};
 
 
 
