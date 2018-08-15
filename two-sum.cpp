@@ -105,7 +105,8 @@ class Solution {
 
 
 // 1遍Hash表
-// Time:O(n), Space:O(n),Hash表查找时间O(1), 查找n次; 额外存放n个元素
+// Time:  O(n)
+// Space: O(n)
 #include <unordered_map>
 #include <vector>
 #include <iostream>
