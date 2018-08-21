@@ -9,16 +9,17 @@ using namespace std;
 class Solution {
  public:
   void rotate(vector<int>& nums, int k) {
+    if (nums.size() == 0 || k == 0 || k % nums.size() == 0) return;
     vector<int> v;
     int n = nums.size();
-    for (int i = k; i < n + k; i++) {
+    for (int i = k; i < k+n; i++) {
       v.push_back(nums[i % n]);
     }
     nums = v;
-    // return v;
   }
-};
+};  // 方向问题, 但可以实现
 */
+
 
 /*
 // Time:O(n^2), Space:O(1);
@@ -52,12 +53,12 @@ class Solution {
 // 但是Time Limit Exceeded
 */
 
-
+/*
 // Time:   Space:O(n)
 class Solution {
  public:
   void rotate(vector<int>& nums, int k) {
-    if (nums.size() == 0 || k == 0 || k % nums.size() ==0)
+    if (nums.size() == 0 || k == 0 || k % nums.size() == 0)
       return;
     int n = nums.size(), m = k % n;
 
@@ -68,13 +69,13 @@ class Solution {
     }
   }
 };  // 改成从右往左, 添加数组为空, k为零的情况, 求余也为0的情况
-
+*/
 
 
 
 int main() {
   Solution s;
-  vector<int> nums1 = {0, 1, 2, 3};
+  vector<int> nums1 = {0, 1, 2, 3, 4};
   vector<int> nums2 = {0, 1};
   vector<int> nums3 = {};
   int k = 2;

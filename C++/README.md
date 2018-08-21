@@ -144,6 +144,7 @@ class Solution {
     
 ### 189. Rotate Array
 
+不断往新数组中添加元素, 该元素的索引通过求余数得到
 ```cpp
 // Time:O(n), Space:O(n);
 class Solution {
@@ -160,6 +161,7 @@ class Solution {
 };
 ```
 
+扫描k遍, 每一遍都将首个元素移到最后
 ```cpp
 // ERROR:
 // Time:O(n^2), Space:O(1);
@@ -176,6 +178,7 @@ class Solution {
 };  // 从左往右写反
 ```
 
+扫描k遍， 每遍都将最后一个元素移动最前
 ```cpp
 // Time:O(n^2), Space:O(1);
 class Solution {
@@ -193,6 +196,13 @@ class Solution {
 ```
 
 
+最新的解法,
+```
+0 1 2 3 4
+3 4 0 1 3
+```
+观察数组构造, 将3通过交换到最首位, 4位于其次
+
 ```cpp
 // Time:   Space:O(n)
 class Solution {
@@ -209,3 +219,4 @@ class Solution {
     }
   }
 };  // 改成从右往左, 添加数组为空, k为零的情况, 求余也为0的情况
+```
