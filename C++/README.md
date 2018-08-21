@@ -142,3 +142,70 @@ class Solution {
 };
 ```
     
+### 189. Rotate Array
+
+```cpp
+// Time:O(n), Space:O(n);
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    vector<int> v;
+    int n = nums.size();
+    for (int i = k; i < n + k; i++) {
+      v.push_back(nums[i % n]);
+    }
+    nums = v;
+    // return v;
+  }
+};
+```
+
+```cpp
+// ERROR:
+// Time:O(n^2), Space:O(1);
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    for (int i = 0; i < k; i++) {
+      for (int j = 0; j < n-1; j++) {
+        int tmp = nums[j]; nums[j] = nums[j+1]; nums[j+1] = tmp;
+      }
+    }
+  }
+};  // 从左往右写反
+```
+
+```cpp
+// Time:O(n^2), Space:O(1);
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    for (int i = 0; i < k; i++) {
+      for (int j = n-1; j > 0; j--) {
+        int tmp = nums[j]; nums[j] = nums[j-1]; nums[j-1] = tmp;
+      }
+    }
+  }
+};  // 改成从右往左
+// 但是Time Limit Exceeded
+```
+
+
+```cpp
+// Time:   Space:O(n)
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    if (nums.size() == 0 || k == 0 || k % nums.size() ==0)
+      return;
+    int n = nums.size(), m = k % n;
+
+    for (int i = n-m; i <= n-1; i++) {
+      for (int j = i; j > i-(n-m); j--) {
+        int tmp = nums[j]; nums[j] = nums[j-1]; nums[j-1] = tmp;
+      }
+    }
+  }
+};  // 改成从右往左, 添加数组为空, k为零的情况, 求余也为0的情况

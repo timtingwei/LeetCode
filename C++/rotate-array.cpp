@@ -5,7 +5,7 @@
 using namespace std;
 
 /*
-// Time:O(n), Space:O(1);
+// Time:O(n), Space:O(n);
 class Solution {
  public:
   void rotate(vector<int>& nums, int k) {
@@ -52,19 +52,22 @@ class Solution {
 // 但是Time Limit Exceeded
 */
 
+
+// Time:   Space:O(n)
 class Solution {
  public:
   void rotate(vector<int>& nums, int k) {
-    int n = nums.size(), p = k % n;
-    for (int i = 0; i < p; i++) {
-      for (int j = n - p; j <= n-1; j++) {
-        for (int q = j; q > j - p; j--) {
-          int tmp = nums[q]; nums[q] = nums[q-1]; nums[q-1] = tmp;
-        }
+    if (nums.size() == 0 || k == 0 || k % nums.size() ==0)
+      return;
+    int n = nums.size(), m = k % n;
+
+    for (int i = n-m; i <= n-1; i++) {
+      for (int j = i; j > i-(n-m); j--) {
+        int tmp = nums[j]; nums[j] = nums[j-1]; nums[j-1] = tmp;
       }
     }
   }
-};  // 改成从右往左
+};  // 改成从右往左, 添加数组为空, k为零的情况, 求余也为0的情况
 
 
 
