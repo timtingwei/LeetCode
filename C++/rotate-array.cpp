@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-
+/*
 // Time:O(n), Space:O(1);
 class Solution {
  public:
@@ -18,6 +18,56 @@ class Solution {
     // return v;
   }
 };
+*/
+
+/*
+// Time:O(n^2), Space:O(1);
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    for (int i = 0; i < k; i++) {
+      for (int j = 0; j < n-1; j++) {
+        int tmp = nums[j]; nums[j] = nums[j+1]; nums[j+1] = tmp;
+      }
+    }
+  }
+};  // 从左往右写反
+*/
+
+/*
+// Time:O(n^2), Space:O(1);
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    int n = nums.size();
+    for (int i = 0; i < k; i++) {
+      for (int j = n-1; j > 0; j--) {
+        int tmp = nums[j]; nums[j] = nums[j-1]; nums[j-1] = tmp;
+      }
+    }
+  }
+};  // 改成从右往左
+
+// 但是Time Limit Exceeded
+*/
+
+class Solution {
+ public:
+  void rotate(vector<int>& nums, int k) {
+    int n = nums.size(), p = k % n;
+    for (int i = 0; i < p; i++) {
+      for (int j = n - p; j <= n-1; j++) {
+        for (int q = j; q > j - p; j--) {
+          int tmp = nums[q]; nums[q] = nums[q-1]; nums[q-1] = tmp;
+        }
+      }
+    }
+  }
+};  // 改成从右往左
+
+
+
 
 int main() {
   Solution s;
