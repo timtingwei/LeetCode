@@ -11,4 +11,10 @@
 |#	 |     Title                             |    Solution                                                                                                | Time | Space | Difficulty | Tag | Note |
 |----|---------------------------------------|------------------------------------------------------------------------------------------------------------|------|-------|------------|-----|------|
 |26  | Remove Duplicates from Sorted Array   | [C++](https://github.com/timtingwei/LeetCode/blob/master/C%2B%2B/remove-duplicates-from-sorted-array.cpp)  | O(n) | O(1)  |  Easy      |      |     |
+<<<<<<< HEAD
 |122 | Best Time to Buy and Sell Stock II    | [C++](https://github.com/timtingwei/LeetCode/blob/master/C%2B%2B/best-time-to-buy-and-sell-stock-2.cpp)    | O(n) | O(1)  |  Easy      |      |     |
+=======
+|122 | best-time-to-buy-and-sell-stock-2     | [C++](https://github.com/timtingwei/LeetCode/blob/master/C%2B%2B/best-time-to-buy-and-sell-stock-2.cpp)    | O(n) | O(1)  |  Easy      |      |     |
+
+// test
+>>>>>>> 7b1de81847c764fee8ef8082211dda09ba0095a5

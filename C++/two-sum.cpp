@@ -103,7 +103,7 @@ class Solution {
 };
 */
 
-
+/*
 // 1遍Hash表
 // Time:  O(n)
 // Space: O(n)
@@ -121,6 +121,113 @@ class Solution {
       int key = target - nums[i];
       if (mp.find(key) != mp.end()) return { mp[key], i};
       mp[nums[i]] = i;
+    }
+    return {};
+  }
+};
+*/
+
+
+
+// write again
+
+/*
+// 遍历两遍的暴力解决
+class Solution {
+ public:
+  vector<int> twoSum(vector<int> &nums, int target) {
+    int n = nums.size();
+    for (int i = 0; i < n-1; i++) {
+      for (int j = i+1; j < n; j++) {
+        if (nums[i] + nums[j] == target) {
+          return {i, j};
+        }
+      }
+    }
+    return {};
+  }
+};
+*/
+
+/*
+// 双指针遍历一遍, 不稳定
+// Time:O(N^2), Space:O(n);
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+class Solution {
+ public:
+  void exch(vector<int> &v, int i, int j) {
+    int tmp = v[i]; v[i] = v[j]; v[j] = tmp;
+  }
+
+  vector<int> twoSum(vector<int> &nums, int target) {
+    int n = nums.size();
+    vector<int> rank;
+    for (int i = 0; i < n; i++) rank.push_back(i);
+    for (int i = 1; i < n; i++) {
+      for (int j = i; j > 0 && nums[j] < nums[j-1]; j--) {
+        exch(nums, j, j-1);
+        exch(rank, j, j-1);
+      }
+    }
+    int i = 0, j = nums.size()-1;
+    while (i < j) {
+      if (nums[i] + nums[j] == target) {
+        return {rank[i], rank[j]};
+      } else if (nums[i] + nums[j] < target) {
+        i++;
+      } else {
+        j--;
+      }
+    }
+    return {};
+  }
+};
+*/
+
+/*
+// Hash表两次扫描
+// Time:O(n), Space:O(n);
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
+using namespace std;
+class Solution {
+ public:
+  vector<int> twoSum(vector<int> &nums, int target) {
+    unordered_map<int, int> mp;
+    for (int i = 0; i < nums.size(); i++) {
+      mp[ nums[i] ] = i;
+    }
+
+    for (int i = 0; i < nums.size(); i++) {
+      int key = target - nums[i];
+      if (mp.find(key) != mp.end() && mp[key] != i) {
+        return {i, mp[key]};
+      }
+    }
+  }
+};
+*/
+
+// Hash散列一遍扫描
+// Time:O(n), Space:O(n)
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
+using namespace std;
+class Solution {
+ public:
+  vector<int> twoSum(vector<int> &nums, int target) {
+    unordered_map<int, int> mp;
+    for (int i = 0; i < nums.size(); i++) {
+      int key = target - nums[i];
+      if (mp.find(key) != mp.end()) return {mp[key], i};
+      mp[ nums[i]] = i;
     }
     return {};
   }
