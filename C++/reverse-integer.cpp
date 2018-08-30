@@ -1,99 +1,44 @@
 // Copyright[2018] <mituh>
 // reverse-integer.cpp
-
-
+// Time:O(n), Space:O(1)
 #include <iostream>
 #include <vector>
 #include <cmath>
 using namespace std;
+
+// 不需要重新写大整数类
 // 123,  321
 // -123, -321
 // 120,  21
-
-struct Bign {
-  int d[1005];
-  int len;
-  Bign() {
-    memset(d, 0, sizeof(d));
-    len = 0;
-  }
-};
-
-Bign change(int x) {
-  Bign a;
-  int flag = 0;
-  if (x < 0) {
-    x = -x;
-    flag = 1;
-  }
-  while (x) {
-    a.d[a.len++] = x % 10;
-    x /= 10;
-  }
-  if (flag) {
-    a.d[a.len-1] *= -1;
-  }
-  return a;
-}
-
-void show(Bign a) {
-  for (int i = a.len-1; i >= 0; i--) {
-    cout << a.d[i];
-  }
-  cout << endl;
-}
-
-int compare(Bign a, Bign b) {
-  if (a.d[a.len-1] * b.d[b.len-1] < 0) {
-    if (a.d[a.len-1] < 0) {
-      return -1;
-    } else {
-      return 1;
-    }
-  }
-  if (a.d[a.len-1] > 0) {
-    if (a.len < b.len) return -1;
-    else if (a.len > b.len) return 1;
-    else {
-      for (int i = 0; i < a.len; i++) {
-        if (a.d[i] < b.d[i]) return -1;
-        else if (a.d[i] > b.d[i]) return 1;
-      }
-      return 0;
-    }
-  } else if (a.d[a.len-1] < 0) {
-    if (a.len < b.len) return 1;
-    else if (a.len > b.len) return -1;
-    else {
-      for (int i = 0; i < a.len; i++) {
-        if (a.d[i] < b.d[i]) return 1;
-        else if (a.d[i] > b.d[i]) return -1;
-      }
-      return 0;
-    }
-  }
-  return 0;
-}
-
 class Solution {
  public:
   int reverse(int x) {
-    Bign a = change(x);
-    Bign lower = change(pow(-2, 31)), upper = change(pow(2, 31)-1);
-    if (compare(a, lower) < 0 || compare(a, upper) > 0) {
-      return 0;
+    int result = 0, judge = 0;
+    while (x) {
+      judge = result * 10;
+      if (judge / 10 != result) {
+        return 0;
+      }
+      result = judge;
+      result += x % 10;
+      x /= 10;
     }
-    return 0;
+    return result;
   }
 };
 
-
 int main() {
-  Bign a = change(pow(2, 31)-1), b = change(pow(-2, 31));
-  Bign a1 = change(-1), b1 = change(-2);
-  show(a1);
-  show(b1);
-  cout << "rst = " << compare(a1, b1) << endl;
+  Solution solution;
+  cout << solution.reverse(-321) << endl;
+  cout << endl;
+  cout << solution.reverse(1234) << endl;
+  cout << endl;
+  cout << solution.reverse(1534236469) << endl;
+  cout << endl;
+  cout << solution.reverse(1363847412) << endl;
+  cout << endl;
+  cout << solution.reverse(900000) << endl;
+  cout << endl;
   return 0;
 }
 
