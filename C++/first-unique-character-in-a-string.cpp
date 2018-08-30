@@ -5,6 +5,7 @@
 using namespace std;
 
 
+
 // Time:O(n), Space:O(1)
 class Solution {
  public:
@@ -22,11 +23,12 @@ class Solution {
 };
 
 
+
 int main() {
   Solution solution;
   string s1 = "leetcode", s2 = "loveleetcode";
   string s3 = "uindrseqbljlhqvlwvgdebeihttirikuahlikgnahvgnptmqwbovmuwesxkvcitcwrwrucsbbfqvldridfviduqvmfcmeiphoqupbitnwdbvevouoaetisdmgvvvwoglwtgjrpcbghxkrkjthetxeexbphbjiehaicuicgnirslhdstgmqcdnlulpdpadjdltfouwhfqicfcqntnpeqaohslwkhbvflxaudembsrsindluthxapnmrqins";
-  string s4 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
+  string s4 = "aaab";
   cout << solution.firstUniqChar(s1) << endl;
   cout << solution.firstUniqChar(s2) << endl;
   cout << solution.firstUniqChar(s3) << endl;
