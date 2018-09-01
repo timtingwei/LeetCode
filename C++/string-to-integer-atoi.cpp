@@ -5,27 +5,20 @@
 #include <string>
 using namespace std;
 
+/*
 class Solution {
  public:
   int myAtoi(string str) {
-    int ans = 0;
+    int ans = 0, judge = 0;
     int n = str.length();
     int i = 0;
     while (i < n && str[i] == ' ') i++;
-    if (str[i] == '-' ||  str[i] == '+' || isdigit(str[i])) {
-      int have = 0, flag = 0;
-      if (isdigit(str[i])) {
-        have = 0;
-      } else {
-        if (str[i] == '+') {
-          flag = 1;
-        } else {
-          flag = -1;
-        }
-      }
-      int flag = (str[i] == '-') ? -1 : 1;
-      while (i < n && !isdigit(str[i])) i++;    // -+-222 error
-      int judge = 0;
+    int cnt = 0, flag = 1;
+    while (str[i] == '-' || str[i] == '+') {
+      if (str[i] == '-') flag = -1;
+      i++; cnt++;
+    }
+    if (isdigit(str[i]) && (cnt == 0 || cnt == 1)) {     // error: what2.3
       while (i < n && isdigit(str[i])) {
         judge = ans * 10;
         if (judge / 10 != ans) {
@@ -39,14 +32,13 @@ class Solution {
         ans += str[i] - '0';
         i++;
       }
-      // printf("next char = %c\n", str[i]);
       ans *= flag;
-      return ans;
-    } else {
-      return 0;
     }
+    return ans;
   }
 };
+*/
+
 
 /*
 Input:
@@ -57,57 +49,49 @@ Expected:
 0
 */
 
-// "42"
-// 42
 
-// "   -42"
-// -42
-
-// "4193 with words"
-// 4193
-
-// "words and 987"
-// 0
-
-// "-91283472332"
-// -2147483648
 /*
-Input: "42"
-Output: 42
-Example 2:
-
-Input: "   -42"
-Output: -42
-Explanation: The first non-whitespace character is '-', which is the minus sign.
-             Then take as many numerical digits as possible, which gets 42.
-Example 3:
-
-Input: "4193 with words"
-Output: 4193
-Explanation: Conversion stops at digit '3' as the next character is not a numerical digit.
-Example 4:
-
-Input: "words and 987"
-Output: 0
-Explanation: The first non-whitespace character is 'w', which is not a numerical 
-             digit or a +/- sign. Therefore no valid conversion could be performed.
-Example 5:
-
-Input: "-91283472332"
-Output: -2147483648
+Input:
+"2147483648"
+Output:
+-2147483648
+Expected:
+2147483647
 */
+
+
+// Time:O(n), Space:O(1)
+class Solution {
+ public:
+  int myAtoi(string str) {
+    long long int ans = 0;
+    int flag = 1;
+    int i = str.find_first_not_of(' ');
+    if (str[i] == '-' || str[i] == '+') {
+      flag = (str[i++] == '-') ? -1 : 1;
+    }
+    while ('0' <= str[i] && str[i] <= '9') {
+      ans = ans*10 + (str[i++] - '0');
+      if (ans * flag >= INT_MAX) return INT_MAX;
+      if (ans * flag <= INT_MIN) return INT_MIN;
+    }
+    return ans * flag;
+  }
+};
 
 int main() {
   Solution solution;
   string s1 = "42.3", s2 = "  30", s3 = "what 2.3", s4 = "-23.3",
-      s5 = "-91283472332", s6 = "4193with words";
+      s5 = "-91283472332", s6 = "4193with words", s7 = "-+-212",
+      s8 = "2147483648";
   cout << solution.myAtoi(s1) << endl;  // 42;
   cout << solution.myAtoi(s2) << endl;  // 30;
-  cout << solution.myAtoi(s3) << endl;  // uncaught exception of type
+  cout << solution.myAtoi(s3) << endl;  // 0
   cout << solution.myAtoi(s4) << endl;  // -23;
-  cout << solution.myAtoi(s5) << endl;  // -23;
-  cout << solution.myAtoi(s6) << endl;  // -23;
+  cout << solution.myAtoi(s5) << endl;  // -2147483648
+  cout << solution.myAtoi(s6) << endl;  // 4193
+  cout << solution.myAtoi(s7) << endl;  // 0
+  cout << solution.myAtoi(s8) << endl;  // -2147483648
 
   return 0;
 }
-
