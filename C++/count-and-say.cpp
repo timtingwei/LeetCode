@@ -6,6 +6,8 @@
 #include <stack>
 using namespace std;
 
+/*
+// 栈实现的版本
 class Solution {
  public:
   string countAndSay(int n) {
@@ -34,6 +36,32 @@ class Solution {
   }
 
 };
+*/
+
+
+// Time:O(n), Space:O(n)
+// 指针的版本, for循环中用while跳跃
+class Solution {
+ public:
+  string countAndSay(int n) {
+    if (n == 0) return "";
+    string res = "1";
+    while (--n) {
+      string cur = "";
+      for (int i = 0; i < res.size(); i++) {
+        int cnt = 1;
+        while ((i+1 < res.size()) && res[i] == res[i+1]) {
+          cnt++;
+          i++;
+        }
+        cur += to_string(cnt) + res[i];
+      }
+      res = cur;
+    }
+    return res;
+  }
+};
+
 
 
 int main() {
@@ -43,6 +71,6 @@ int main() {
   cout << solution.countAndSay(2) << endl;
   cout << solution.countAndSay(3) << endl;
   cout << solution.countAndSay(4) << endl;
-  cout << solution.countAndSay(5) << endl;
+  cout << solution.countAndSay(10) << endl;
   return 0;
 }
