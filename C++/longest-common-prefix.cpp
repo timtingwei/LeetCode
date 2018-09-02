@@ -5,33 +5,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-
 /*
-class Solution {
- public:
-  string longestCommonPrefix(vector<string> &strs) {
-    string res = "";
-
-    for (int i = 0; ; i++) {
-      int ok = 1;
-      char pChar = strs[0][i];
-      for (int j = 1; j < strs.size(); j++) {
-        if (strs[j][i] != pChar) {
-          ok = 0;
-          break;
-        }
-        if (i == strs[j].size()) return res;
-      }
-      if (ok) {
-        res += pChar;
-      }
-    }
-    return res;
-  }
-
-};
-*/
-
 class Solution {
  public:
   string longestCommonPrefix(vector<string> &strs) {
@@ -49,7 +23,23 @@ class Solution {
   }
 
 };
+*/
 
+// 更为简洁的版本
+class Solution {
+ public:
+  string longestCommonPrefix(vector<string> &strs) {
+    string res = "";
+    for (int idx = 0; strs.size() > 0; res += strs[0][idx], idx++) {
+      for (int i = 0; i < strs.size(); i++) {
+        if (idx >= strs[i].length() ||
+            (i > 0 && strs[i][idx] != strs[i-1][idx]))
+          return res;
+      }
+    }
+    return res;
+  }
+};
 
 int main() {
   Solution solution;
