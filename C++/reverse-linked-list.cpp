@@ -10,6 +10,7 @@
  * };
  */
 
+/*
 // Time:O(n^2), Space:O(1)
 class Solution {
  public:
@@ -33,4 +34,39 @@ class Solution {
     return reverseHead;
   }
 };
+
+*/
+
+
+// follow1: iteratively
+class Solution {
+ public:
+  ListNode* reverseList(ListNode* head, int k) {
+    if (head == nullptr) return head;
+    ListNode *pNode = head;
+    for (int i = 0; i < k-1; i++) {
+      if (pNode->next == nullptr) return head;
+      pNode = pNode->next;
+    }
+    ListNode *reverseHead = pNode, *nextNode = pNode->next;
+    while (pNode != head) {
+      ListNode *p = head;
+      while (p->next != pNode) {
+        p = p->next;
+      }
+      pNode->next = p;
+      pNode = p;
+    }
+    pNode->next = nextNode;
+    return reverseHead;
+  }
+};
+
+
+/*
+[1, 2, 3, 4, 5]
+int k = 2;
+
+[2, 1, 3, 4, 5]
+*/
 
