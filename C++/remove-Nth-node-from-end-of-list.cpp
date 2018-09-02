@@ -10,33 +10,44 @@
  * };
  */
 
+// 扫描两遍, 保存前一个结点的方法
 class Solution {
  public:
   ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode *p = head; int size = 0;
+    if (head == nullptr) return head;
+    ListNode* prev = head, *p = prev->next;
+    int size = 1;
     while (p) {
-      p = p -> next;
+      prev = prev->next;
+      p = prev->next;
       size++;
     }
-    p = head;
-    for (int i = 0; i < size-n; i++) {
-      printf("val = %d\n", p->val);
-      p = p->next;
+
+    prev = head; p = prev->next;
+    for (int i = 0; i < size-n-1; i++) {
+      prev = prev->next;
+      p = prev->next;
     }
-    if (p->next) {
-      p->val = p->next->val;
-      ListNode *delNode = p->next;
-      p->next = delNode->next;
-      delete(delNode);
+
+    if (prev && !p) {
+      prev = nullptr;
+      delete(prev); delete(p);
+      head = nullptr;
     } else {
-      if (p == head) {
-        head = nullptr;
+      if (prev == head && size-n == 0) {
+        delete(prev);
+        head = p;
+      } else {
+        prev->next = p->next;
+        delete(p);
       }
-      ListNode *delNode = p->next;    // 无法删除尾结点
-      p = nullptr;
-      delete(delNode);
     }
     return head;
   }
 };
+
+
+
+
+
 
