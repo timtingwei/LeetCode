@@ -47,7 +47,46 @@ class Solution {
 };
 
 
+// 扫描一遍
+class Solution {
+ public:
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode *cur = head, *p = head;
+    for (int i = 0; p->next; i++) {
+      if (i >= n-1) cur = cur->next;
+      p = p->next;
+    }
+    if (cur == head) {
+      if (p == head) {
+        delete(cur);
+        head = nullptr;
+      } else {
+        head = cur->next;
+        delete(cur);
+      }
+    } else {
+      if (cur == p) {
+        cur->next = nullptr;
+        cur = nullptr;
+        free(cur);
+      } else {
+        cur->val = cur->next->val;
+        ListNode *delNode = cur->next;
+        cur->next = delNode->next;
+        delete(delNode);
+      }
+    }
+    // delete(p);
+    return head;
+  }
 
+};
 
+/*
+  // 删除不了最后一个结点
+[1,2,3,4,5]
+1
 
+[1, 2, 3, 5]
+*/
 
