@@ -169,3 +169,64 @@ class Solution {
 
 删除链表结点的操作要记得熟练.
 先讨论不是尾结点, 再讨论既是尾结点也是头结点, 最后讨论尾结点.
+
+
+### 206. Reverse Linked List -u
+
+Reverse a singly linked list.
+
+#### Example:
+
+Input: 1->2->3->4->5->NULL
+Output: 5->4->3->2->1->NULL
+#### Follow up:
+
+A linked list can be reversed either iteratively or recursively. Could you implement both?
+
+#### Solution:
+```
+1->2->3->4->5;
+
+当5作为头结点指向4的时, 4仍旧指向5, 可以通过每次保留上一次处理的结点, 从末尾前指向
+```
+
+几个注意点:
+> 1, 主要在中间过程中, 找出反转后的头结点;
+> 2, 在反转结束后, 尾指针指向nullptr;
+> 3, 要注意空链表的情况;
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+// Time:O(n^2), Space:O(1)
+class Solution {
+ public:
+  ListNode* reverseList(ListNode* head) {
+    if (head == nullptr) return head;
+    ListNode *pNode = nullptr, *reverseHead = nullptr;
+    while (pNode != head) {
+      ListNode *p = head;
+      while (p->next != pNode) {
+        p = p->next;
+      }
+
+      if (pNode != nullptr) {
+        pNode->next = p;
+      } else {
+        reverseHead = p;
+      }
+      pNode = p;
+    }
+    pNode->next = nullptr;
+    return reverseHead;
+  }
+};
+
+```
