@@ -47,7 +47,8 @@ class Solution {
 };
 
 
-// 扫描一遍
+/*
+// 扫描一遍, 无法删除最后一个结点的错误版本:
 class Solution {
  public:
   ListNode* removeNthFromEnd(ListNode* head, int n) {
@@ -81,6 +82,7 @@ class Solution {
   }
 
 };
+*/
 
 /*
   // 删除不了最后一个结点
@@ -90,3 +92,38 @@ class Solution {
 [1, 2, 3, 5]
 */
 
+
+// 更新删除结点的操作
+class Solution {
+ public:
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    if (head == nullptr || n == 0) return head;
+
+    ListNode *cur = head, *p = head;
+    for (int i = 0; p->next; i++) {
+      if (i >= n-1) cur = cur->next;
+      p = p->next;
+    }
+
+    if (cur->next != nullptr) {   // cur不是尾结点
+      ListNode *delNode = cur->next;
+      cur->val = delNode->val;
+      cur->next = delNode->next;
+      delete(delNode);
+      delNode = nullptr;
+    } else if (cur == head) {     // cur既是头结点也是尾结点
+      delete(cur);
+      cur = nullptr;
+      head = nullptr;
+    } else {                      // cur是尾结点
+      p = head;
+      while (p->next != cur) {
+        p = p->next;
+      }
+      p->next = nullptr;
+      delete(cur);
+      cur = nullptr;
+    }
+    return head;
+  }
+};
