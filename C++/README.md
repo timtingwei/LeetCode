@@ -182,8 +182,37 @@ Output: 5->4->3->2->1->NULL
 #### Follow up:
 
 A linked list can be reversed either iteratively or recursively. Could you implement both?
+#### Solution1:
 
-#### Solution:
+pNext用于移动pNode, pPrev和找到新的链表头,  保存pPrev用于创建新的链接.
+
+三个变量: 新的链表头reverseHead, 游标结点pNode, 前序结点pPrev, 
+四个操作: 循环内部创建下一结点, 改变游标指向前序结点, 前序结点移动到游标结点, 游标结点移动到下一结点.
+两个判断: 游标结点非空指针时, 进行循环操作; 游标的下一结点为空指针时, 记录新的链表头
+```cpp
+// basic reverse
+// Time:O(n), Space:O(1)
+class Solution {
+ public:
+  ListNode* reverseList(ListNode* head) {
+    ListNode* reverseHead = nullptr;
+    ListNode* pNode = head;
+    ListNode* pPrev = nullptr;
+    while (pNode != nullptr) {
+      ListNode* pNext = pNode->next;
+      if (pNext == nullptr) {
+        reverseHead = pNode;
+      }
+      pNode->next = pPrev;
+      pPrev = pNode;
+      pNode = pNext;
+    }
+    return reverseHead;
+  }
+
+};
+```
+#### Solution2:
 ```
 1->2->3->4->5;
 
