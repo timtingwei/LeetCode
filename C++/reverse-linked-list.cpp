@@ -10,6 +10,28 @@
  * };
  */
 
+// basic reverse
+// Time:O(n), Space:O(1)
+class Solution {
+ public:
+  ListNode* reverseList(ListNode* head) {
+    ListNode* reverseHead = nullptr;
+    ListNode* pNode = head;
+    ListNode* pPrev = nullptr;
+    while (pNode != nullptr) {
+      ListNode* pNext = pNode->next;
+      if (pNext == nullptr) {
+        reverseHead = pNode;
+      }
+      pNode->next = pPrev;
+      pPrev = pNode;
+      pNode = pNext;
+    }
+    return reverseHead;
+  }
+
+};
+
 
 // Time:O(n^2), Space:O(1)
 class Solution {
