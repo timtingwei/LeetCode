@@ -26,6 +26,8 @@ class Solution {
 
     while (head_a && head_b) {
       if (head_a->val != head_b->val) return false;
+      head_a = head_a->next;
+      head_b = head_b->next;
     }
 
     return true;
