@@ -369,3 +369,66 @@ input:
 [2, 1, 4, 3, 6, 5, 8, 7]
 */
 ```
+
+
+### 234. Palindrome Linked List -uw
+
+Given a singly linked list, determine if it is a palindrome.
+
+#### Example 1:
+Input: 1->2
+Output: false
+
+#### Example 2:
+Input: 1->2->2->1
+Output: true
+
+#### Follow up:
+Could you do it in O(n) time and O(1) space?
+
+#### Solution:
+
+Time要求O(n), Space要求O(1), 可以原地反转一部分链表, 然后比较反转后的两段链表的结点值是否对应相等。链表长度若是奇数, 中间结点可不比较; 若是偶数, 链表被切割成一半一半.
+
+注意点: 
+1, 链表为空或者链表长度为1, 都属于回文.
+2, 反转链表需要三个结点.prevNode是前一个结点, pNode是工作结点, pNext是循环中指向下一结点, 改变pNode的指向性后, 若在之前不保存pNext就无法实现移动.
+
+```cpp
+// Time:O(n), Space:O(1)
+class Solution {
+ public:
+  bool isPalindrome(ListNode *head) {
+    // if (head == nullptr) return false;
+    if (head == nullptr) return true;
+    ListNode *head_a, *head_b, *pNode = head;
+    int len = 0;
+    while (pNode != nullptr) {
+      len++;
+      pNode = pNode->next;
+    }
+    if (len == 1) return true;
+
+    // int half_len = (int)len/2;
+    int half_len = len/2;
+    ListNode *prevNode = nullptr;
+    pNode = head;
+    for (int i = 0; i < half_len; i++) {
+      ListNode *pNext = pNode->next;
+      pNode->next = prevNode;
+      prevNode = pNode;
+      pNode = pNext;
+    }
+    head_a = prevNode;
+    head_b = (len % 2) ? pNode->next : pNode;
+
+    while (head_a && head_b) {
+      if (head_a->val != head_b->val) return false;
+      head_a = head_a->next;
+      head_b = head_b->next;
+    }
+
+    return true;
+  }
+};
+```
